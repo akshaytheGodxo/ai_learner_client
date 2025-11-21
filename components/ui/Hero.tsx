@@ -1,23 +1,7 @@
 "use client";
 import { Cover } from "./cover"
-import {
-    InputGroup,
-    InputGroupText,
-    InputGroupAddon,
-    InputGroupTextarea,
-    InputGroupButton
-} from "@/components/ui/input-group";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { IconPlus } from "@tabler/icons-react";
-import { ArrowUpIcon, Search } from "lucide-react"
-import { useRouter } from "next/navigation";
+import AskAI from "@/app/test/page";
 export default function Hero() {
 
     const handleQuestionSubmit = () => {
@@ -31,43 +15,7 @@ export default function Hero() {
                     Solve your doubts <br /> at <Cover>light speed</Cover>
                 </h1>
                 <div className="">
-                    <InputGroup >
-                        <InputGroupTextarea placeholder="Ask, Search or Chat..." />
-                        <InputGroupAddon align="block-end">
-                            <InputGroupButton
-                                variant="outline"
-                                className="rounded-full"
-                                size="icon-xs"
-                            >
-                                <IconPlus />
-                            </InputGroupButton>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <InputGroupButton variant="ghost">Auto</InputGroupButton>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent
-                                    side="top"
-                                    align="start"
-                                    className="[--radius:0.95rem]"
-                                >
-                                    <DropdownMenuItem>Auto</DropdownMenuItem>
-                                    <DropdownMenuItem>Agent</DropdownMenuItem>
-                                    <DropdownMenuItem>Manual</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                            <InputGroupText className="ml-auto">52% used</InputGroupText>
-                            <Separator orientation="vertical" className="h-4" />
-                            <InputGroupButton
-                                variant="default"
-                                className="rounded-full"
-                                size="icon-xs"
-                                onClick={handleQuestionSubmit}
-                            >
-                                <ArrowUpIcon />
-                                <span className="sr-only">Send</span>
-                            </InputGroupButton>
-                        </InputGroupAddon>
-                    </InputGroup>
+                    <AskAI />
                 </div>
             </div>
 

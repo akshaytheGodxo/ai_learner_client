@@ -1,48 +1,52 @@
-import { OpenAI } from "openai";
+"use client";
 
-// const client = new OpenAI({
-// 	baseURL: "https://router.huggingface.co/v1",
-// 	apiKey: process.env.HF_TOKEN,
-// });
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
 
-// const stream = await client.chat.completions.create({
-//     model: "moonshotai/Kimi-K2-Thinking:novita",
-//     messages: [
-//         {
-//             role: "user",
-//             content: "What is the capital of France?",
-//         },
-//     ],
-//     stream: true,
-// });
+export default function AskAI() {
+  const [response, setResponse] = useState("");
+  const [question, setQuestion] = useState("");
 
-// for await (const chunk of stream) {
-//     process.stdout.write(chunk.choices[0]?.delta?.content || "");
-// }
+  const askAI = async () => {
+    if (!question.trim()) return;
 
-export default async function Test() {
-//     const client = new OpenAI({
-//         baseURL: "https://router.huggingface.co/v1",
-//         apiKey: process.env.HF_TOKEN,
-//     });
+    const res = await fetch("https://router.huggingface.co/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_HF_TOKEN}`,
+      },
+      body: JSON.stringify({
+        model: "moonshotai/Kimi-K2-Thinking",
+        messages: [
+          {
+            role: "user",
+            content: question,
+          },
+        ],
+      }),
+    });
 
-//     const stream = await client.chat.completions.create({
-//         model: "moonshotai/Kimi-K2-Thinking:novita",
-//         messages: [
-//             {
-//                 role: "user",
-//                 content: "What is the capital of France?",
-//             },
-//         ],
-//         stream: true,
-//     });
-//     for await (const chunk of stream) {
-//     process.stdout.write(chunk.choices[0]?.delta?.content || "");
-// }
+    const data = await res.json();
+    setResponse(data.choices?.[0]?.message?.content || "No response");
+  };
 
-    // console.log(stream);
+  return (
+    <div className="p-5 flex flex-col gap-4">
+      <Input
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
+        placeholder="Ask something..."
+      />
 
-    return (
-        <></>
-    )
+      <button
+        onClick={askAI}
+        className="px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Ask
+      </button>
+
+      <p>{response}</p>
+    </div>
+  );
 }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+
 
 export default function Header() {
     return (
@@ -9,9 +11,16 @@ export default function Header() {
                         
                         {/* Logo */}
                         <div className="flex items-center">
-                            <div className="flex-shrink-0 text-white text-xl font-bold">
-                                <Link href="/">Logo</Link>
-                            </div>
+                        <div className="shrink-0">
+                            <Link href="/">
+                            <Image 
+                                src="/cat.png"        
+                                alt="Logo"
+                                width={100}             
+                                height={100}
+                            />
+                            </Link>
+                        </div>
                         </div>
 
                         {/* Desktop Menu */}
@@ -24,16 +33,16 @@ export default function Header() {
                                     Home
                                 </Link>
                                 <Link 
-                                    href="/about" 
+                                    href="/quiz" 
                                     className="text-white px-3 py-2 hover:bg-white hover:text-black rounded-lg"
                                 >
-                                    About
+                                    Quiz
                                 </Link>
-                                <Link 
-                                    href="/contact" 
+                                <Link
+                                    href="/stats" 
                                     className="text-white px-3 py-2 hover:bg-white hover:text-black rounded-lg"
                                 >
-                                    Contact
+                                    Performance
                                 </Link>
                             </div>
                         </div>
